@@ -42,4 +42,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * Get the type of the user
+     */
+    public function user_type()
+    {
+        return $this->belongsTo(UserType::class);
+    }
+
+    /**
+     * Return all dvds related with this user
+     */
+    public function dvds()
+    {
+        return $this->belongsToMany(Dvd::class)->using(UserDvd::class);
+    }
+
 }
