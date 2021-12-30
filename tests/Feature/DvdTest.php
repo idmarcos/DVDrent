@@ -61,16 +61,33 @@ class DvdTest extends TestCase
 
     public function test_return_all_movies()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'user_type_id'=>1
+        ]);
 
         $response = $this->actingAs($user)->get('/movies');
 
         $response->assertStatus(200);
     }
 
+    public function test_user_no_can_return_all_movies()
+    {
+        $user = User::factory()->create([
+            'user_type_id'=>2
+        ]);
+
+        $response = $this->actingAs($user)->get('/movies');
+
+        $response->assertStatus(302);
+        $response->assertRedirect('login');
+    }
+
+
     public function test_create_movie()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'user_type_id'=>1
+        ]);
 
         $response = $this->actingAs($user)->post('/movies', [
             'title'=>'Test',
@@ -86,9 +103,32 @@ class DvdTest extends TestCase
         $response->assertRedirect('movies');
     }
 
+    public function test_user_no_can_create_movie()
+    {
+        $user = User::factory()->create([
+            'user_type_id'=>2
+        ]);
+
+        $response = $this->actingAs($user)->post('/movies', [
+            'title'=>'Test',
+            'duration'=>199,
+            'year'=>1997,
+            'gender'=>'Action',
+            'synopsis'=>'Synopsis de la pelicula',
+            'cast'=>'Brad Pitt',
+            'age_rating'=>18,
+            'available'=>1,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('login');
+    }
+
     public function test_update_movie()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'user_type_id'=>1
+        ]);
         $dvd = Dvd::factory()->create([
             'id'=>1
         ]);
@@ -107,9 +147,35 @@ class DvdTest extends TestCase
         $response->assertRedirect('movies');
     }
 
+    public function test_user_no_can_update_movie()
+    {
+        $user = User::factory()->create([
+            'user_type_id'=>2
+        ]);
+        $dvd = Dvd::factory()->create([
+            'id'=>1
+        ]);
+
+        $response = $this->actingAs($user)->put('/movies/1', [
+            'title'=>'Test',
+            'duration'=>199,
+            'year'=>1997,
+            'gender'=>'Action',
+            'synopsis'=>'Synopsis de la pelicula',
+            'cast'=>'Brad Pitt',
+            'age_rating'=>18,
+            'available'=>1,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('login');
+    }
+
     public function test_delete_movie()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'user_type_id'=>1
+        ]);
         $dvd = Dvd::factory()->create([
             'id'=>1
         ]);
@@ -119,5 +185,22 @@ class DvdTest extends TestCase
         ]);
 
         $response->assertRedirect('movies');
+    }
+
+    public function test_user_no_can_delete_movie()
+    {
+        $user = User::factory()->create([
+            'user_type_id'=>2
+        ]);
+        $dvd = Dvd::factory()->create([
+            'id'=>1
+        ]);
+
+        $response = $this->actingAs($user)->delete('/movies/1', [
+            
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('login');
     }
 }
