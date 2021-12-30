@@ -53,4 +53,10 @@ Route::resource('movies', 'App\Http\Controllers\DvdController', [
     ]
 ])->middleware('auth');
 
+Route::resource('clients', 'App\Http\Controllers\ClientController', [
+    'names' => [
+        'index' => 'clients.index',
+    ]
+])->middleware('auth');
+
 require __DIR__.'/auth.php';
