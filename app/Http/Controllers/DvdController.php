@@ -238,4 +238,16 @@ class DvdController extends Controller
         
         return view('admin.movies.inrent', compact('movies_in_rent'));
     }
+
+    /**
+     * Movies returned
+     */
+    public function moviesReturned()
+    {
+        $movies_returned=DVD::select()->whereHas('users', function ($query) { 
+                                                $query->whereNotNull('return_date');
+                                            })->get();
+        
+        return view('admin.movies.returned', compact('movies_returned'));
+    }
 }

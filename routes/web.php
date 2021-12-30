@@ -45,6 +45,9 @@ Route::post('/movies/{id}/rent', [DvdController::class, 'movieRent'])
 Route::get('/movies/inrent', [DvdController::class, 'moviesInRent'])
             ->middleware('auth')
             ->name('movies.inrent');
+Route::get('/movies/returned', [DvdController::class, 'moviesReturned'])
+            ->middleware('auth')
+            ->name('movies.returned');
 
 Route::post('/rent/{id}/return', [DvdController::class, 'returnMovie'])
             ->middleware('auth')
