@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 use App\Models\Dvd;
 use App\Models\User;
+use App\Models\UserDvd;
 
 class DvdTest extends TestCase
 {
@@ -35,5 +36,26 @@ class DvdTest extends TestCase
         ]);
 
         $response->assertRedirect('list/movies');
+    }
+
+    public function test_return_movie()
+    {
+        $dvd = Dvd::factory()->create([
+            'id'=>1
+        ]);
+        $user = User::factory()->create([
+            'id'=>1
+        ]);
+        $user_dvd = UserDvd::factory()->create([
+            'id'=>1,
+            'user_id'=>1,
+            'dvd_id'=>1
+        ]);
+
+        $response = $this->actingAs($user)->post('/rent/1/return', [
+
+        ]);
+
+        $response->assertRedirect('list/myrents');
     }
 }

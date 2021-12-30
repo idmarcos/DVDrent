@@ -57,7 +57,8 @@ class User extends Authenticatable
      */
     public function dvds()
     {
-        return $this->belongsToMany(Dvd::class)->using(UserDvd::class);
+        return $this->belongsToMany(Dvd::class, 'users_dvds')
+                    ->withPivot('id','rent_date', 'return_date', 'address', 'postal_code', 'state');
     }
 
 }

@@ -139,4 +139,42 @@ class DvdController extends Controller
 
         return redirect('/list/movies')->with('success', 'Nueva pel&iacute;cula alquilada.');
     }
+
+    /**
+     * Show all user rents
+     */
+    public function userRents()
+    {
+        $user=Auth::user();
+
+        $rents=$user->dvds;
+        $n=count($rents);
+
+        for($i=0; $i<=$n; $i++){
+            if(isset($rents[$i]->pivot->rent_date)){
+                $rents[$i]->pivot->rent_date=date('d/m/Y', strtotime($rents[$i]->pivot->rent_date));
+            }
+            if(isset($rents[$i]->pivot->return_date)){
+                $rents[$i]->pivot->return_date=date('d/m/Y', strtotime($rents[$i]->pivot->return_date));
+            }
+        }
+
+        return view('movies.myrents', compact('rents'));
+    }
+
+    /**
+     * Return a movie
+     */
+    public function returnMovie($id)
+    {
+        $current_date=date('Y-m-d');
+
+        $user_dvd=UserDvd::find($id);
+
+        $user_dvd->return_date = $current_date;
+
+        $user_dvd->save();
+
+        return redirect('/list/myrents')->with('success', 'Pel&iacute;cula devuelta.');
+    }
 }

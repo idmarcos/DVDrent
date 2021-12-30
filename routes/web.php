@@ -33,11 +33,18 @@ Route::get('/dashboard', function () {
 Route::get('/list/movies', [DvdController::class, 'movieList'])
             ->middleware('auth')
             ->name('movies.list');
+Route::get('/list/myrents', [DvdController::class, 'userRents'])
+            ->middleware('auth')
+            ->name('user.movies.rent');
 
 Route::get('/movies/{id}/rent', [DvdController::class, 'movieFormRent'])
             ->middleware('auth');
 Route::post('/movies/{id}/rent', [DvdController::class, 'movieRent'])
             ->middleware('auth')
             ->name('movies.rent');
+
+Route::post('/rent/{id}/return', [DvdController::class, 'returnMovie'])
+            ->middleware('auth')
+            ->name('movies.return');
 
 require __DIR__.'/auth.php';
