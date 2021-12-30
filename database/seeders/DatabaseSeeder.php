@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory(10)->create();
         \App\Models\DVD::factory(100)->create();
-        \App\Models\UserDvd::factory(300)->create();
+        //\App\Models\UserDvd::factory(300)->create();
     }
 }

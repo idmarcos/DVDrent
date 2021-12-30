@@ -24,7 +24,7 @@ class DvdFactory extends Factory
             'synopsis'=>$this->faker->paragraph,
             'cast'=>$this->faker->words(3, true),
             'age_rating'=>$age_rating,
-            'available'=>$this->faker->boolean
+            'available'=>1
         ];
     }
 }
