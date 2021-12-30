@@ -226,4 +226,16 @@ class DvdController extends Controller
 
         return redirect('/list/myrents')->with('success', 'Pel&iacute;cula devuelta.');
     }
+
+    /**
+     * Movies in rent
+     */
+    public function moviesInRent()
+    {
+        $movies_in_rent=DVD::select()->whereHas('users', function ($query) { 
+                                                $query->whereNull('return_date');
+                                            })->get();
+        
+        return view('admin.movies.inrent', compact('movies_in_rent'));
+    }
 }
