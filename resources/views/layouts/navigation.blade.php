@@ -12,9 +12,30 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @if(Auth::user()->user_type_id==1)
+                        <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.index')">
+                            Listado de clientes
+                        </x-nav-link>
+                        <x-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.index')">
+                            Listado de ventas
+                        </x-nav-link>
+                        <x-nav-link :href="route('movies.inrent')" :active="request()->routeIs('movies.inrent')">
+                            Películas en alquiler
+                        </x-nav-link>
+                        <x-nav-link :href="route('movies.returned')" :active="request()->routeIs('movies.returned')">
+                            Películas devueltas
+                        </x-nav-link>
+                        <x-nav-link :href="route('movies.index')" :active="request()->routeIs('movies.index')">
+                            Gestión de películas
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('movies.list')" :active="request()->routeIs('movies.list')">
+                            Listado de Películas
+                        </x-nav-link>
+                        <x-nav-link :href="route('user.movies.rent')" :active="request()->routeIs('user.movies.rent')">
+                            Mis Alquileres
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

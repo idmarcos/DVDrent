@@ -27,7 +27,13 @@
                     <td>{{$dvd->synopsis}}</td>
                     <td>{{$dvd->cast}}</td>
                     <td>{{$dvd->age_rating}}</td>
-                    <td><input type="checkbox" value="{{ $dvd->available }}" name="available" disabled @if ($dvd->available) checked @endif></td>
+                    <td>
+                        @if ($dvd->available)
+                            <button type="" class="btn btn-success" disabled>Sí</button>
+                        @else
+                            <button type="" class="btn btn-danger" disabled>No</button>
+                        @endif
+                    </td>
                     <td>
                         <form action="{{route('movies.destroy', $dvd->id)}}" method="POST">
                             <a href="/movies/{{$dvd->id}}/edit" class="btn btn-info">Editar</a>

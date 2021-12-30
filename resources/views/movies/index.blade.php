@@ -34,6 +34,3 @@
         </tbody>
     </table>
 </x-app-layout>
-
-
-<a href="movies/create" class="btn btn-primary">Añadir</a>

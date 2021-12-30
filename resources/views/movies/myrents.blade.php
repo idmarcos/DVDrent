@@ -37,7 +37,7 @@
                                 <button type="submit" class="btn btn-danger">Devolver</button>
                             </form>
                         @else
-                            <a href="" class="btn btn-success disabled">{{$rent->pivot->return_date}}</a>
+                            <button type="" class="btn btn-success disabled">{{$rent->pivot->return_date}}</button>
                         @endif
                     </td>
                 </tr>
