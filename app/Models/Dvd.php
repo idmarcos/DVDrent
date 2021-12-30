@@ -25,7 +25,8 @@ class Dvd extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class)->using(UserDvd::class);
+        return $this->belongsToMany(User::class, 'users_dvds')
+                ->withPivot('id','rent_date', 'return_date', 'address', 'postal_code', 'state');
     }
 
 }

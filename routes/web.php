@@ -59,4 +59,10 @@ Route::resource('clients', 'App\Http\Controllers\ClientController', [
     ]
 ])->middleware('auth');
 
+Route::resource('sales', 'App\Http\Controllers\SaleController', [
+    'names' => [
+        'index' => 'sales.index',
+    ]
+])->middleware('auth');
+
 require __DIR__.'/auth.php';
