@@ -42,7 +42,7 @@
 
         <div class="mb-3">
             <label for="" class="form-label">Código postal</label>
-            <input id="cp" name="cp" type="text" class="form-control" value="" required>
+            <input id="cp" name="cp" type="number" class="form-control" value="" required>
         </div>
 
         <div class="mb-3">

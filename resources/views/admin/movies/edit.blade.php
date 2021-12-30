@@ -1,6 +1,4 @@
-@extends('layouts.layout')
-
-@section('content')
+<x-app-layout>
     <h2>Editar película</h2>
 
     <form action="/movies/{{$dvd->id}}" method="POST">
@@ -12,11 +10,11 @@
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Duración</label>
-            <input id="duration" name="duration" type="text" class="form-control" value="{{$dvd->duration}}">
+            <input id="duration" name="duration" type="number" class="form-control" value="{{$dvd->duration}}">
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Año</label>
-            <input id="year" name="year" type="text" class="form-control" value="{{$dvd->year}}">
+            <input id="year" name="year" type="number" class="form-control" value="{{$dvd->year}}">
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Género</label>
@@ -32,11 +30,11 @@
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Edad Recomendada</label>
-            <input id="age_rating" name="age_rating" type="text" class="form-control" value="{{$dvd->age_rating}}">
+            <input id="age_rating" name="age_rating" type="number" class="form-control" value="{{$dvd->age_rating}}">
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a href="/movies" class="btn btn-danger">Cancelar</a>
     </form>
-@endsection
+</x-app-layout>
          
