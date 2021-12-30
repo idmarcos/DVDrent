@@ -2,12 +2,14 @@
     <table class="table table-secondary table-striped mt-2">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">ID Película</th>
                 <th scope="col">Título</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Email</th>
+                <th scope="col">Fecha alquiler</th>
+                <th scope="col">Fecha devolución</th>
                 <th scope="col">Destino</th>
-                <th scope="col">Marcar disponible</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +19,8 @@
                     <td>{{$returned->dvd->title}}</td>
                     <td>{{$returned->user->name}}</td>
                     <td>{{$returned->user->email}}</td>
+                    <td>{{$returned->rent_date}}</td>
+                    <td>{{$returned->return_date}}</td>
                     <td>{{$returned->address}}, {{$returned->postal_code}}, {{$returned->state}}<br></td>
                     <td>
                         @if($returned->dvd->available)
@@ -24,7 +28,7 @@
                         @else
                         <form action="{{route('movies.available', $returned->dvd->id)}}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-danger">No disponible</button>
+                            <button type="submit" class="btn btn-danger">Marcar como disponible</button>
                         </form>
                         @endif
                     </td>

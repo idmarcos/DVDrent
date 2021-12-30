@@ -62,7 +62,7 @@ class DvdController extends Controller
         
         $dvd->save();
 
-        return redirect('/movies')->with('success', 'Nueva pel&iacute;cula creada.');
+        return redirect('/movies')->with('success', 'Nueva película creada.');
     }
 
     /**
@@ -118,7 +118,7 @@ class DvdController extends Controller
         
         $dvd->save();
 
-        return redirect('/movies')->with('success', 'Pel&iacute;cula editada.');
+        return redirect('/movies')->with('success', 'Película editada.');
     }
 
     /**
@@ -131,9 +131,13 @@ class DvdController extends Controller
     {
         $dvd=Dvd::find($id);
 
+        if(!$dvd->available){
+            return redirect('/movies')->with('error', 'No se puede eliminar una película en alquiler.');
+        }
+
         $dvd->delete();
 
-        return redirect('/movies')->with('success', 'Pel&iacute;cula eliminada.');
+        return redirect('/movies')->with('success', 'Película eliminada.');
     }
 
     /**
@@ -186,7 +190,7 @@ class DvdController extends Controller
         $dvd->available=0;
         $dvd->save();
 
-        return redirect('/list/movies')->with('success', 'Nueva pel&iacute;cula alquilada.');
+        return redirect('/list/movies')->with('success', 'Película alquilada.');
     }
 
     /**
@@ -224,7 +228,7 @@ class DvdController extends Controller
 
         $user_dvd->save();
 
-        return redirect('/list/myrents')->with('success', 'Pel&iacute;cula devuelta.');
+        return redirect('/list/myrents')->with('success', 'Película devuelta.');
     }
 
     /**
@@ -233,6 +237,14 @@ class DvdController extends Controller
     public function moviesInRent()
     {
         $movies_in_rent=UserDvd::select()->with('dvd', 'user')->whereNull('return_date')->get();
+
+        $n=count($movies_in_rent);
+
+        for($i=0; $i<=$n; $i++){
+            if(isset($movies_in_rent[$i]->rent_date)){
+                $movies_in_rent[$i]->rent_date=date('d/m/Y', strtotime($movies_in_rent[$i]->rent_date));
+            }
+        }
 
         
         return view('admin.movies.inrent', compact('movies_in_rent'));
@@ -244,6 +256,17 @@ class DvdController extends Controller
     public function moviesReturned()
     {
         $movies_returned=UserDvd::select()->with('dvd', 'user')->whereNotNull('return_date')->get();
+
+        $n=count($movies_returned);
+
+        for($i=0; $i<=$n; $i++){
+            if(isset($movies_returned[$i]->rent_date)){
+                $movies_returned[$i]->rent_date=date('d/m/Y', strtotime($movies_returned[$i]->rent_date));
+            }
+            if(isset($movies_returned[$i]->return_date)){
+                $movies_returned[$i]->return_date=date('d/m/Y', strtotime($movies_returned[$i]->return_date));
+            }
+        }
         
         return view('admin.movies.returned', compact('movies_returned'));
     }
@@ -259,6 +282,6 @@ class DvdController extends Controller
 
         $dvd->save();
 
-        return redirect('/movies/returned')->with('success', 'Pel&iacute;cula marcada como disponible.');
+        return redirect('/movies/returned')->with('success', 'Película marcada como disponible.');
     }
 }

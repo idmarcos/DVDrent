@@ -5,7 +5,11 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
+                @if(Auth::user()->user_type_id==1)
+                    <a href="{{ route('admin.dashboard') }}">
+                @else
                     <a href="{{ route('dashboard') }}">
+                @endif
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
                 </div>

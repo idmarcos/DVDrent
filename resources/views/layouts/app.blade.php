@@ -32,6 +32,8 @@
 
             <!-- Page Content -->
             <main>
+                @include('partials.success')
+                @include('partials.error')
                 {{ $slot }}
             </main>
         </div>

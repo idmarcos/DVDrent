@@ -2,7 +2,7 @@
     <table class="table table-secondary table-striped mt-2">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Email</th>
                 <th scope="col">Películas Alquiladas</th>

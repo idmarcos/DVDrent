@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
 
-        \App\Models\User::factory(10)->create();
-        \App\Models\DVD::factory(100)->create();
+        \App\Models\User::factory(5)->create();
+        \App\Models\DVD::factory(20)->create();
         //\App\Models\UserDvd::factory(300)->create();
     }
 }
