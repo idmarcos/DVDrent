@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\DvdController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,5 +28,10 @@ Route::prefix('admin')->group(function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+
+Route::get('/list/movies', [DvdController::class, 'movieList'])
+            ->middleware('auth')
+            ->name('movies.list');
 
 require __DIR__.'/auth.php';
