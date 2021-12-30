@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_type_id',
     ];
 
     /**
@@ -41,4 +42,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * Get the type of the user
+     */
+    public function user_type()
+    {
+        return $this->belongsTo(UserType::class);
+    }
+
+    /**
+     * Return all dvds related with this user
+     */
+    public function dvds()
+    {
+        return $this->belongsToMany(Dvd::class, 'users_dvds')
+                    ->withPivot('id','rent_date', 'return_date', 'address', 'postal_code', 'state');
+    }
+
 }
