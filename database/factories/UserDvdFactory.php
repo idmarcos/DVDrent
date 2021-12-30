@@ -26,7 +26,10 @@ class UserDvdFactory extends Factory
             'user_id'=>$this->faker->numberBetween(2, $n_users),
             'dvd_id'=>$this->faker->numberBetween(1, $n_dvds),
             'rent_date'=>$rent_date,
-            'return_date'=>$return_date
+            'return_date'=>$return_date,
+            'address'=>$this->faker->address,
+            'postal_code'=>$this->faker->randomNumber(6, true),
+            'state'=>$this->faker->state,
         ];
     }
 }

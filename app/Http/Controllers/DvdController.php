@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Dvd;
+use App\Models\UserDvd;
+
+use Auth;
 
 class DvdController extends Controller
 {
@@ -92,5 +95,48 @@ class DvdController extends Controller
         $dvds=Dvd::all();
 
         return view('movies.index', compact('dvds'));
+    }
+    
+    /**
+     * Show the form for rent the movie.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function movieFormRent($id)
+    {
+        $dvd=Dvd::find($id);
+
+        return view('movies.rent', compact('dvd'));
+    }
+
+     /**
+     * Rent a movie. 
+     */
+    public function movieRent(Request $request, $id)
+    {
+        $address = $request->input('address');
+        $postal_code = $request->input('cp');
+        $state = $request->input('state');
+
+        $user=Auth::user();
+        $dvd=Dvd::find($id);
+        $current_date=date('Y-m-d');
+
+        $user_dvd = new UserDvd();
+
+        $user_dvd->user_id = $user->id;
+        $user_dvd->dvd_id = $id;
+        $user_dvd->rent_date = $current_date;
+        $user_dvd->address = $address;
+        $user_dvd->postal_code = $postal_code;
+        $user_dvd->state = $state;
+
+        $user_dvd->save();
+
+        $dvd->available=0;
+        $dvd->save();
+
+        return redirect('/list/movies')->with('success', 'Nueva pel&iacute;cula alquilada.');
     }
 }

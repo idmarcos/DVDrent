@@ -34,4 +34,10 @@ Route::get('/list/movies', [DvdController::class, 'movieList'])
             ->middleware('auth')
             ->name('movies.list');
 
+Route::get('/movies/{id}/rent', [DvdController::class, 'movieFormRent'])
+            ->middleware('auth');
+Route::post('/movies/{id}/rent', [DvdController::class, 'movieRent'])
+            ->middleware('auth')
+            ->name('movies.rent');
+
 require __DIR__.'/auth.php';

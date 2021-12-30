@@ -23,16 +23,17 @@
                     <td>{{$dvd->cast}}</td>
                     <td>{{$dvd->age_rating}}</td>
                     <td>
-                        <form action="{{route('movies.destroy', $dvd->id)}}" method="POST">
-                            @if($dvd->available)
-                                <a href="/movies/{{$dvd->id}}/edit" class="btn btn-info">Alquilar</a>
-                            @else
-                                <a href="/movies/{{$dvd->id}}/edit" class="btn btn-danger disabled">No disponible</a>
-                            @endif
-                        </form>
+                        @if($dvd->available)
+                            <a href="/movies/{{$dvd->id}}/rent" class="btn btn-info">Alquilar</a>
+                        @else
+                            <a href="" class="btn btn-danger disabled">No disponible</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 </x-app-layout>
+
+
+<a href="movies/create" class="btn btn-primary">Añadir</a>
