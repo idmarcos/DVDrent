@@ -18,7 +18,9 @@ class DvdController extends Controller
      */
     public function index()
     {
-       
+        $dvds=Dvd::all();
+
+        return view('admin.movies.index', compact('dvds'));
     }
 
     /**
@@ -28,7 +30,7 @@ class DvdController extends Controller
      */
     public function create()
     {
-       
+        return view('admin.movies.create');
     }
 
     /**
@@ -39,7 +41,28 @@ class DvdController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $title = $request->input('title');
+        $duration = $request->input('duration');
+        $year = $request->input('year');
+        $gender = $request->input('gender');
+        $synopsis = $request->input('synopsis');
+        $cast = $request->input('cast');
+        $age_rating = $request->input('age_rating');
+
+        $dvd = new Dvd();
+
+        $dvd->title = $title;
+        $dvd->duration = $duration;
+        $dvd->year = $year;
+        $dvd->gender = $gender;
+        $dvd->synopsis = $synopsis;
+        $dvd->cast = $cast;
+        $dvd->age_rating = $age_rating;
+        $dvd->available = 1;
+        
+        $dvd->save();
+
+        return redirect('/movies')->with('success', 'Nueva pel&iacute;cula creada.');
     }
 
     /**
@@ -61,7 +84,9 @@ class DvdController extends Controller
      */
     public function edit($id)
     {
-        
+        $dvd=Dvd::find($id);
+
+        return view('admin.movies.edit', compact('dvd'));
     }
 
     /**
@@ -73,7 +98,27 @@ class DvdController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $title = $request->input('title');
+        $duration = $request->input('duration');
+        $year = $request->input('year');
+        $gender = $request->input('gender');
+        $synopsis = $request->input('synopsis');
+        $cast = $request->input('cast');
+        $age_rating = $request->input('age_rating');
+
+        $dvd=Dvd::find($id);
+
+        $dvd->title = $title;
+        $dvd->duration = $duration;
+        $dvd->year = $year;
+        $dvd->gender = $gender;
+        $dvd->synopsis = $synopsis;
+        $dvd->cast = $cast;
+        $dvd->age_rating = $age_rating;
         
+        $dvd->save();
+
+        return redirect('/movies')->with('success', 'Pel&iacute;cula editada.');
     }
 
     /**
@@ -84,7 +129,11 @@ class DvdController extends Controller
      */
     public function destroy($id)
     {
-       
+        $dvd=Dvd::find($id);
+
+        $dvd->delete();
+
+        return redirect('/movies')->with('success', 'Pel&iacute;cula eliminada.');
     }
 
     /**

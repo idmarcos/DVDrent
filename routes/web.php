@@ -47,4 +47,10 @@ Route::post('/rent/{id}/return', [DvdController::class, 'returnMovie'])
             ->middleware('auth')
             ->name('movies.return');
 
+Route::resource('movies', 'App\Http\Controllers\DvdController', [
+    'names' => [
+        'index' => 'movies.index',
+    ]
+])->middleware('auth');
+
 require __DIR__.'/auth.php';
