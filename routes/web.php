@@ -16,7 +16,7 @@ use App\Http\Controllers\DvdController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::prefix('admin')->group(function () {
