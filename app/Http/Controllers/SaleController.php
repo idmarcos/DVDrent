@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Dvd;
+use App\Models\UserDvd;
 
 class SaleController extends Controller
 {
@@ -15,8 +15,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales=DVD::select()->whereHas('users')->get();
-        
+        $sales=UserDvd::select()->with('dvd', 'user')->get();
 
         return view('admin.sales.index', compact('sales'));
     }

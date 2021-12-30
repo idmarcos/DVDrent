@@ -232,9 +232,8 @@ class DvdController extends Controller
      */
     public function moviesInRent()
     {
-        $movies_in_rent=DVD::select()->whereHas('users', function ($query) { 
-                                                $query->whereNull('return_date');
-                                            })->get();
+        $movies_in_rent=UserDvd::select()->with('dvd', 'user')->whereNull('return_date')->get();
+
         
         return view('admin.movies.inrent', compact('movies_in_rent'));
     }
@@ -244,10 +243,22 @@ class DvdController extends Controller
      */
     public function moviesReturned()
     {
-        $movies_returned=DVD::select()->whereHas('users', function ($query) { 
-                                                $query->whereNotNull('return_date');
-                                            })->get();
+        $movies_returned=UserDvd::select()->with('dvd', 'user')->whereNotNull('return_date')->get();
         
         return view('admin.movies.returned', compact('movies_returned'));
+    }
+
+    /**
+     * Get movie available
+     */
+    public function movieAvailable($id)
+    {
+        $dvd=Dvd::find($id);
+
+        $dvd->available = 1;
+
+        $dvd->save();
+
+        return redirect('/movies/returned')->with('success', 'Pel&iacute;cula marcada como disponible.');
     }
 }

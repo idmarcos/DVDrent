@@ -17,4 +17,14 @@ class UserDvd extends Model
         'rent_date',
         'return_date',
     ];
+
+    public function dvd()
+    {
+        return $this->belongsTo(Dvd::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -52,6 +52,9 @@ Route::get('/movies/returned', [DvdController::class, 'moviesReturned'])
 Route::post('/rent/{id}/return', [DvdController::class, 'returnMovie'])
             ->middleware('auth')
             ->name('movies.return');
+Route::post('/movies/{id}/available', [DvdController::class, 'movieAvailable'])
+            ->middleware('auth')
+            ->name('movies.available');
 
 Route::resource('movies', 'App\Http\Controllers\DvdController', [
     'names' => [
